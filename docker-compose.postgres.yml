@@ -1,0 +1,12 @@
+version: '3.8'
+# use this to get a postgres container on 5436
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres_container
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: gps

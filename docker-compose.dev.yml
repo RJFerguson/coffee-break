@@ -1,0 +1,43 @@
+# docker-compose.dev.yml
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    ports:
+      - 5436:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD", "pg_isready", "-U", "postgres", "-d", "postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+  coffee-break-app:
+    container_name: coffee-break-app
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    env_file:
+      - .env
+    environment:
+      POSTGRES_ADDR: postgres
+      POSTGRES_DATABASE: midshiftDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: always
+    ports:
+      - 3001:3000
+
+volumes:
+  pgdata: {}
