@@ -5,11 +5,10 @@
   "scripts": {
     "dev": "bun next dev --port 3001",
     "build": "bun next build",
-    "start": " bun next start",
+    "start": "prisma migrate deploy &&  bun next start",
     "lint": "bun next lint",
     "migrate": "prisma migrate deploy",
-    "start:migrate:dev": "prisma migrate deploy && bun next dev",
-    "start:migrate:prod": "prisma migrate deploy && bun run start"
+    "start:migrate:dev": "prisma migrate deploy && bun next dev"
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.2.4",

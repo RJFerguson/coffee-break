@@ -2,30 +2,61 @@
 
 ## Getting Started
 
+
+### Running as a complete app in docker 
+#### Must have docker installed, if not see instructions at bottom of readme
+
+```bash
+docker-compose -f docker-compose.dev.yml up -d -V --build
+```
+
+### Running as a stand alone FE
+
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev # for node 
+bun dev # for bun
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## build thinking
+[X] framework selection and bootstrap
+[] deploy to vercel 
+[] provision DB and connection
+[] integration & E2E test
+[] implement from 0 bootstrap script for mac (windows? shudder.)
+[] implement auth? (stretch)
+[] implement rollover? (stetch)
+[] TWA / bubble wrap 
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Tech stack choices and trade offs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Big Blocks 
+* FE/BE - NextJS - fairly standard choice at this point with it really being a wrapper around react, going to use the app router for the first time 
+* DB - Postgres - Conventional choice and a little more complex to set up than in file sqlite, but wanted to deploy it and have it persist 
+* CI/CD - Vercel - A bit of an easy choice because of how straight forward the integration into github directly is with a pretty good free tier to boot. First time using
+* Hosting - Vercel - For FE/BE, was obvious based on CI/CD choice. Almost went with GAE, but wanted to try Vercel for the first time
+* Hosting - Railway - For DB, the new Heroku in a lot of ways, fan of their UI and DX with a pretty good free tier
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Smaller choices 
+* i18n 
+
+
+#### Skipped choices 
+* i18n - doesn't feel critical 
+
+## Product thinking (don't over think it)
+
+"Rooms" are the collection unit. 
+
+Users are members of rooms 
+Users have a favorite order 
+Users can add an order
+
+Rooms can be split even / by price / rolled over (strech)
+
 

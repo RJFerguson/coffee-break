@@ -23,6 +23,5 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 # OR for sart Next.js in development, comment above two lines and uncomment below line
 
-# Note: Don't expose ports here, Compose will handle that for us
 EXPOSE 3000
-CMD [ "bun", "run", "start:migrate:dev" ]
+CMD [ "bun", "run", "start" ]
