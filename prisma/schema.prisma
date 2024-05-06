@@ -13,8 +13,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
+model User {
+  id        Int      @id @default(autoincrement())
+  kindeId   String   @unique
+  email     String   @unique
+  firstName String
+  lastName  String
+  user_rooms                           Room[]                  @relation("user_rooms")
+
 }
+
+model Room {
+  id      Int      @id @default(autoincrement())
+  uuid   String   @unique
+  pw    String?
+  room_users                   User[]                    @relation("user_rooms")
+}
+
+model CoffeeDrinks {
+  id      Int      @id @default(autoincrement())
+  name   String   @unique
+  price  Float?
+  displayPrice String
+}
+
+
+// model order {
+//   id                 Int         @id @default(autoincrement())
+//   order_date         DateTime
+//   is_completed       Boolean
+//   total              Float
+//   paid_by_id         user?
+//   updated_at         DateTime    @updatedAt
+//   created_at         DateTime    @default(now())
+//   created_by_id      String
+//   created_by_user_id Int?
+//   updated_by         User?       @relation("owned_plan_stages", fields: [updated_by_id], references: [id])
+//   created_by         User?       @relation("created_plan_stages", fields: [created_by_user_id], references: [id])
+//   plan               Plan        @relation(fields: [plan_id], references: [id], onDelete: Cascade)
+
+//   @@schema("coffee_break_app")
+// }
