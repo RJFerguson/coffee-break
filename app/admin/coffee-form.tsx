@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   drinkName: z.string().min(2).max(50, {
@@ -24,7 +24,7 @@ const formSchema = z.object({
   }),
   price: z.coerce.number().multipleOf(0.01, {
     message: "only 2 decimal places.",
-}),
+  }),
 });
 
 export function CoffeeDrinkForm() {
@@ -42,9 +42,9 @@ export function CoffeeDrinkForm() {
       const response = await fetch("/api/coffee", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
       });
       if (!response.ok) {
         throw new Error("Something went wrong");
@@ -53,15 +53,15 @@ export function CoffeeDrinkForm() {
           title: "Success!",
           description: "Your Coffee was saved",
         });
-        router.refresh()
+        router.refresh();
       }
     } catch (e) {
-        toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          })
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
       console.log(e);
     }
   };
@@ -89,7 +89,7 @@ export function CoffeeDrinkForm() {
             <FormItem>
               <FormLabel>Price</FormLabel>
               <FormControl>
-                <Input {...field} defaultValue={1.50}/>
+                <Input {...field} defaultValue={1.5} />
               </FormControl>
               <FormDescription>
                 Enter a drink name and price to save it into the DB!
