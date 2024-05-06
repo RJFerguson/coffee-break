@@ -1,11 +1,16 @@
+## Product Tour 
+
+checkout the `./images` directory for screenshots of the app in action!
+
 ## Getting Started
 
 ## First - Bootstrap db 
 #### Must have docker installed
 
 ```bash
-docker-compose -f docker-compose.postgres.yml up -d -V --build
+docker-compose up
 ```
+Note: this spins up a postgres container on 5436
 
 ## Second - install Bun 
 
@@ -42,7 +47,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 [] implement from 0 bootstrap script for mac (windows? shudder.)
 [] implement auth? (stretch)
 [] implement rollover? (stetch)
-[] TWA / bubble wrap
 
 ## Tech stack choices and trade offs
 
@@ -56,7 +60,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 #### Smaller choices
 
-- i18n
 
 #### Skipped choices
 
@@ -72,3 +75,4 @@ Users have a favorite order
 Users can add an order
 
 Rooms can be split even / by price / rolled over (strech)
+
