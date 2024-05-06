@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "bun next dev --port 3000",
-    "build": "bun next build",
+    "build": "prisma generate && bun next build",
     "start": "prisma migrate deploy &&  bun next start",
     "lint": "bun next lint",
     "migrate": "prisma migrate deploy",
