@@ -1,23 +1,37 @@
 ## Getting Started
 
-### Running as a complete app in docker
-
-#### Must have docker installed, if not see instructions at bottom of readme
+## First - Bootstrap db 
+#### Must have docker installed
 
 ```bash
-docker-compose -f docker-compose.dev.yml up -d -V --build
+docker-compose -f docker-compose.postgres.yml up -d -V --build
 ```
 
-### Running as a stand alone FE
+## Second - install Bun 
+
+Mac
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+windows
+```
+powershell -c "irm bun.sh/install.ps1 | iex"
+```
+
+
+## Third - Running as a stand alone FE
 
 First, run the development server:
 
 ```bash
-npm run dev # for node
-bun dev # for bun
+bun install
+bun run dev # for bun
 ```
 
-Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
 
 ## build thinking
 

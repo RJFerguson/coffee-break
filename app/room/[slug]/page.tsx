@@ -2,6 +2,7 @@ import { CardContainer } from "./cardContainer";
 import { QuickActionsMenu } from "./quickActionsMenu";
 
 export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 async function getData(): Promise<[]> {
   try {
@@ -26,7 +27,7 @@ export default async function Page() {
           </h1>
         </div>
         <div className="container">
-          <CardContainer cofeeData={data} />
+          <CardContainer coffeeData={data} />
         </div>
       </div>
     </section>

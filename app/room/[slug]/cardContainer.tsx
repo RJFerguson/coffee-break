@@ -13,8 +13,9 @@ import {
 import { OrderTable } from "./data-table";
 import { useState } from "react";
 
-export function CardContainer({ cofeeData }) {
-  let mappableData = cofeeData || [];
+export function CardContainer({ coffeeData }) {
+  
+  let mappableData = coffeeData || [];
   let [order, setOrder] = useState([]);
   let [total, setTotal] = useState(0);
 

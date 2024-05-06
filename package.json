@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun next dev --port 3000",
+    "seed": "bun ./seed.js",
+    "bootstrap": "npx prisma db push && npx prisma generate",
+    "dev": "bun run bootstrap && bun next dev --port 3000",
+    "demo": "bun run bootstrap && bun run seed && bun next dev --port 3000",
     "build": "prisma generate && bun next build",
     "start": "prisma migrate deploy &&  bun next start",
     "lint": "bun next lint",

@@ -3,10 +3,10 @@ version: '3.8'
 services:
   postgres:
     image: postgres:latest
-    container_name: my_postgres_container
+    container_name: coffee_break_container
     ports:
       - "5436:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: gps
+      POSTGRES_DB: postgres

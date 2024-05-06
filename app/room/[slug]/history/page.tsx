@@ -30,13 +30,13 @@ function DataMung(orders) {
   return totals;
 }
 
-function calculateDebts(totals) {
-  const debts = [];
+function calculateDebts(totals: any) {
+  const debts: any = [];
 
-  Object.entries(totals).forEach(([person, total]) => {
+  Object.entries(totals).forEach(([person, total]: [any, any]) => {
     if (total > 0) {
       // If person has a positive total (owing money)
-      Object.entries(totals).forEach(([otherPerson, otherTotal]) => {
+      Object.entries(totals).forEach(([otherPerson, otherTotal]: [any, any]) => {
         if (total > 0 && otherTotal < 0) {
           // If person owes money and otherPerson is owed money
           const amountOwed = Math.min(-otherTotal, total);
@@ -56,8 +56,8 @@ function calculateDebts(totals) {
 }
 
 export default async function Page({
-  params,
-}) {
+  params
+}:any) {
   const data = await getData(params.slug);
   console.log(data)
   const totals = DataMung(data)

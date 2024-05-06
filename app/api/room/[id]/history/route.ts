@@ -35,9 +35,9 @@ export async function GET(
 
         // Return the combined result
         return NextResponse.json(aggregateResult, { status: 200 });
-      } catch (error) {
+      } catch (error ) {
         console.error("Error looking for room", error);
-        return NextResponse.json({ error: error.message || "No Room Found" }, { status: 404 });
+        return NextResponse.json({ error: "No Room Found" }, { status: 404 });
       } finally {
         await prisma.$disconnect();
       }

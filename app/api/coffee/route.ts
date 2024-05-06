@@ -10,8 +10,6 @@ export async function POST(req: Request): Promise<Response> {
       throw new Error("Missing required fields: drinkName and price");
     }
 
-    console.log(reqBody)
-
     let savePrice = (reqBody.price.toFixed(2))
 
     // Create a new coffee drink
