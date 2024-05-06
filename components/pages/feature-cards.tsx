@@ -29,7 +29,6 @@ export default function FeatureCards() {
                   title={cards.text}
                   subtitle={cards.subtext}
                 />
-                // onClick={cards.id === 1 ? handleClick : handleModal }
               );
             } else if (cards.id === 2) {
               return (

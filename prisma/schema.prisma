@@ -19,15 +19,14 @@ model User {
   email     String   @unique
   firstName String
   lastName  String
-  user_rooms                           Room[]                  @relation("user_rooms")
 
 }
 
 model Room {
   id      Int      @id @default(autoincrement())
-  uuid   String   @unique
-  pw    String?
-  room_users                   User[]                    @relation("user_rooms")
+  uuid    String   @unique
+  pw      String?
+  orders  Order[]  // Add this line to define the opposite relation
 }
 
 model CoffeeDrinks {
@@ -38,19 +37,15 @@ model CoffeeDrinks {
 }
 
 
-// model order {
-//   id                 Int         @id @default(autoincrement())
-//   order_date         DateTime
-//   is_completed       Boolean
-//   total              Float
-//   paid_by_id         user?
-//   updated_at         DateTime    @updatedAt
-//   created_at         DateTime    @default(now())
-//   created_by_id      String
-//   created_by_user_id Int?
-//   updated_by         User?       @relation("owned_plan_stages", fields: [updated_by_id], references: [id])
-//   created_by         User?       @relation("created_plan_stages", fields: [created_by_user_id], references: [id])
-//   plan               Plan        @relation(fields: [plan_id], references: [id], onDelete: Cascade)
-
-//   @@schema("coffee_break_app")
-// }
+model Order {
+  id            Int         @id @default(autoincrement())
+  order_date    DateTime
+  room          Room        @relation(fields: [room_id], references: [id])
+  room_id       Int
+  price         Float?
+  displayPrice  String
+  total         Float
+  recip         String
+  paid_by       String
+  created_at    DateTime    @default(now())
+}

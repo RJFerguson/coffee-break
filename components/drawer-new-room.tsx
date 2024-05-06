@@ -1,7 +1,9 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn, generateRandomSequence } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -29,6 +31,18 @@ import HeadingText from "@/components/heading-text";
 import { featureCards } from "@/config/contents";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Icons } from "@/components/icons";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 type DrawerDialogNewRoomProps = {
   title: string;
@@ -39,17 +53,42 @@ export function DrawerDialogNewRoom({
   title,
   subtitle,
 }: DrawerDialogNewRoomProps) {
-  const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const handleCreateRoom = async () => {
+    const newRandomSequence = generateRandomSequence(4);
+    try {
+      const response = await fetch(`/api/room`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRandomSequence),
+      });
+      if (!response.ok) {
+        throw new Error("No Room Found");
+      }
+      router.push(`/room/${newRandomSequence}`);
+    } catch (e) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    }
+  };
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog>
         <DialogTrigger asChild>
           <Card
             key={title}
             className="flex flex-grow flex-col items-center justify-between gap-4 p-8 dark:bg-secondary"
-            // onClick={}
+            onClick={handleCreateRoom}
           >
             <div className="space-y-2">
               <CardTitle>{title}</CardTitle>
@@ -57,25 +96,17 @@ export function DrawerDialogNewRoom({
             </div>
           </Card>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Create Room</DialogTitle>
-            <DialogDescription>
-              Add some default info to make this easier for everyone
-            </DialogDescription>
-          </DialogHeader>
-          <UserGroupForm />
-        </DialogContent>
       </Dialog>
     );
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer>
       <DrawerTrigger asChild>
         <Card
           key={title}
           className="flex flex-grow flex-col items-center justify-between gap-4 p-8 dark:bg-secondary"
+          onClick={handleCreateRoom}
         >
           <div className="space-y-2">
             <CardTitle>{title}</CardTitle>
@@ -83,38 +114,6 @@ export function DrawerDialogNewRoom({
           </div>
         </Card>
       </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader className="text-left">
-          <DrawerTitle>Create Room</DrawerTitle>
-          <DrawerDescription>
-            Add some default info to make this easier for everyone
-          </DrawerDescription>
-        </DrawerHeader>
-        <UserGroupForm className="px-4" />
-        <DrawerFooter className="pt-2">
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
     </Drawer>
-  );
-}
-
-function UserGroupForm({ className }: React.ComponentProps<"form">) {
-  const handleSubmit = () => {
-    console.log("test");
-  };
-
-  return (
-    <form className={cn("grid items-start gap-4", className)}>
-      <div className="grid gap-2">
-        <Label htmlFor="numUsers"></Label>
-        <Input type="number" id="numUsers" defaultValue="4" />
-      </div>
-      <Button type="submit" onClick={handleSubmit}>
-        Create!
-      </Button>
-    </form>
   );
 }

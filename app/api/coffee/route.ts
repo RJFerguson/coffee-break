@@ -10,42 +10,36 @@ export async function POST(req: Request): Promise<Response> {
       throw new Error("Missing required fields: drinkName and price");
     }
 
-    console.log(reqBody);
+    console.log(reqBody)
 
-    let savePrice = reqBody.price.toFixed(2);
+    let savePrice = (reqBody.price.toFixed(2))
 
     // Create a new coffee drink
     await prisma.coffeeDrinks.create({
       data: {
         name: reqBody.drinkName,
         price: parseFloat(savePrice),
-        displayPrice: savePrice,
+        displayPrice: savePrice
       },
     });
 
     // Return a success response
-    return NextResponse.json({ message: "success" }, { status: 200 });
+    return NextResponse.json({ message: 'success' }, { status: 200 })
   } catch (error) {
     console.error("Error creating coffee drink:", error);
     // Return an error response
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
 
 export async function GET(req: Request): Promise<Response> {
   try {
-    let coffeeDrinks = await prisma.coffeeDrinks.findMany({});
+  let coffeeDrinks = await prisma.coffeeDrinks.findMany({})
     // Return a success response
-    return NextResponse.json(coffeeDrinks, { status: 200 });
+    return NextResponse.json(coffeeDrinks, { status: 200 })
   } catch (error) {
     console.error("Error creating coffee drink:", error);
     // Return an error response
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
