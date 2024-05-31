@@ -1,48 +1,19 @@
 import * as React from "react";
 
-import { cn, generateRandomSequence } from "@/lib/utils";
+import { generateRandomSequence } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-import Image from "next/image";
-import HeadingText from "@/components/heading-text";
-import { featureCards } from "@/config/contents";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { Icons } from "@/components/icons";
 import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 
 type DrawerDialogNewRoomProps = {
   title: string;
